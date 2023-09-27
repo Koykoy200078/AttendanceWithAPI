@@ -12,6 +12,60 @@ use Illuminate\Validation\ValidationException;
 
 class AllSections extends Controller
 {
+    public function attendanceFormWeb()
+    {
+        return view('welcome');
+    }
+
+    public function storeSectionWeb(Request $request)
+    {
+        $section = $request->input('section'); // Get the selected section from the form
+
+        // Validate the form data
+        $request->validate([
+            'school_id' => 'required|numeric|digits:9',
+            'name' => 'required',
+        ]);
+
+        // Create or update the record
+        switch ($section) {
+            case 'section-a':
+                SectionA::updateOrCreate(
+                    ['school_id' => $request->input('school_id')],
+                    [
+                        'name' => $request->input('name'),
+                        'date' => Carbon::now(),
+                    ]
+                );
+                break;
+            case 'section-b':
+                SectionB::updateOrCreate(
+                    ['school_id' => $request->input('school_id')],
+                    [
+                        'name' => $request->input('name'),
+                        'date' => Carbon::now(),
+                    ]
+                );
+                break;
+            case 'section-c':
+                SectionC::updateOrCreate(
+                    ['school_id' => $request->input('school_id')],
+                    [
+                        'name' => $request->input('name'),
+                        'date' => Carbon::now(),
+                    ]
+                );
+                break;
+            default:
+                return back()->withErrors(['section' => 'Invalid section'])->withInput();
+        }
+
+        return redirect()->route('attendance.formWeb')->with('success', 'Attendance recorded successfully');
+    }
+
+
+
+
     public function storeSection(Request $request, $section)
     {
         // Validation rules for attendance
