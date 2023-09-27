@@ -24,4 +24,4 @@ Route::post('/attendance/web', [AllSections::class, 'storeSectionWeb'])->name('a
 Route::get('/register', [AllSections::class, 'registerFormWeb'])->name('attendance.registerFormWeb');
 Route::post('/register/web', [AllSections::class, 'registerSectionWeb'])->name('attendance.registerSectionWeb');
 
-Route::get('/09755571948/export', [AllSections::class, 'exportData'])->name('attendance.exportData');
+// Route::get('/09755571948/export', [AllSections::class, 'exportData'])->name('attendance.exportData');

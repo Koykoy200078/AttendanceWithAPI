@@ -28,7 +28,7 @@ class AllSections extends Controller
 
         // Validate the form data
         $request->validate([
-            'school_id' => 'required|numeric|digits:9',
+            'school_id' => 'required|numeric',
             'name' => 'required',
         ]);
 
