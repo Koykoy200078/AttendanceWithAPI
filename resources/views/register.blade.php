@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Student Attendance Entry</title>
+    <title>Student Register</title>
 
     @vite('resources/css/app.css')
 </head>
@@ -13,7 +13,15 @@
 <body class="antialiased">
     <div class="flex flex-col justify-center items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div class="w-full max-w-md p-6 bg-white shadow-lg rounded-lg space-y-4">
-            <h1 class="text-2xl font-semibold mb-4 text-center">Student Attendance Entry</h1>
+            <h1 class="text-2xl font-semibold text-center mb-4">Register Student</h1>
+
+            <div class="text-center">
+                <div class="border-t border-b border-gray-300 py-2">
+                    <span class="text-xl font-semibold text-gray-700">Name Format:</span>
+                    <span class="text-indigo-600 text-lg font-semibold ml-2">LastName, Firstname MI.</span>
+                </div>
+            </div>
+
 
             @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4" role="alert">
@@ -33,14 +41,17 @@
             </div>
             @endif
 
-
-
-            <form action="{{ route('attendance.storeSectionWeb') }}" method="POST">
+            <form action="{{ route('attendance.registerSectionWeb') }}" method="POST">
                 @csrf
 
                 <div class="mb-4">
                     <label for="school_id" class="block text-gray-600">School ID:</label>
                     <input type="text" id="school_id" name="school_id" class="form-input w-full" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-600">Full Name:</label>
+                    <input type="text" id="name" name="name" class="form-input w-full" required>
                 </div>
 
                 <div class="mb-4">
@@ -52,7 +63,6 @@
                     </select>
                 </div>
 
-
                 <div class="text-center">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full w-full sm:w-32 mt-4">
                         Submit
@@ -60,6 +70,7 @@
                 </div>
             </form>
         </div>
+
     </div>
 </body>
 

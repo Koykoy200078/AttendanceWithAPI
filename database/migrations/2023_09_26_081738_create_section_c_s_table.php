@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('school_id');
             $table->string('name');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

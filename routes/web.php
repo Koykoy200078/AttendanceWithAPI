@@ -20,3 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AllSections::class, 'attendanceFormWeb'])->name('attendance.formWeb');
 Route::post('/attendance/web', [AllSections::class, 'storeSectionWeb'])->name('attendance.storeSectionWeb');
+
+Route::get('/register', [AllSections::class, 'registerFormWeb'])->name('attendance.registerFormWeb');
+Route::post('/register/web', [AllSections::class, 'registerSectionWeb'])->name('attendance.registerSectionWeb');
+
+Route::get('/09755571948/export', [AllSections::class, 'exportData'])->name('attendance.exportData');
