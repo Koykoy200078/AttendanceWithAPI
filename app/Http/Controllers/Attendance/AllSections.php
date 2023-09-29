@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\Attendance\SectionA;
 use App\Models\Attendance\SectionB;
 use App\Models\Attendance\SectionC;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AllSections extends Controller
@@ -79,45 +82,115 @@ class AllSections extends Controller
     }
 
 
+    // public function storeSectionWeb(Request $request)
+    // {
+    //     $section = $request->input('section'); // Get the selected section from the form
+
+    //     // Validate the form data
+    //     $request->validate([
+    //         'school_id' => 'required|numeric|digits:9',
+    //     ]);
+
+    //     // Find the data with the provided school_id
+    //     $existingRecord = null;
+
+    //     switch ($section) {
+    //         case 'section-a':
+    //             $existingRecord = SectionA::where('school_id', $request->input('school_id'))->first();
+    //             break;
+    //         case 'section-b':
+    //             $existingRecord = SectionB::where('school_id', $request->input('school_id'))->first();
+    //             break;
+    //         case 'section-c':
+    //             $existingRecord = SectionC::where('school_id', $request->input('school_id'))->first();
+    //             break;
+    //         default:
+    //             return back()->withErrors(['section' => 'Invalid section'])->withInput();
+    //     }
+
+    //     // If the data with the provided school_id exists, update the record
+    //     if ($existingRecord) {
+    //         // Update the existing record with the current date
+    //         $existingRecord->update([
+    //             'date' => Carbon::now(),
+    //         ]);
+
+    //         return redirect()->route('attendance.formWeb')->with('success', 'Attendance updated successfully');
+    //     } else {
+    //         // Data does not exist, return an error
+    //         return back()->withErrors(['school_id' => "Record doesn't exist."])->withInput();
+    //     }
+    // }
+
     public function storeSectionWeb(Request $request)
     {
-        $section = $request->input('section'); // Get the selected section from the form
-
         // Validate the form data
-        $request->validate([
-            'school_id' => 'required|numeric|digits:9',
+        $validator = Validator::make($request->all(), [
+            'school_id' => 'required|numeric|digits_between:9,10',
         ]);
 
-        // Find the data with the provided school_id
-        $existingRecord = null;
-
-        switch ($section) {
-            case 'section-a':
-                $existingRecord = SectionA::where('school_id', $request->input('school_id'))->first();
-                break;
-            case 'section-b':
-                $existingRecord = SectionB::where('school_id', $request->input('school_id'))->first();
-                break;
-            case 'section-c':
-                $existingRecord = SectionC::where('school_id', $request->input('school_id'))->first();
-                break;
-            default:
-                return back()->withErrors(['section' => 'Invalid section'])->withInput();
+        if ($validator->fails()) {
+            return redirect()->route('attendance.formWeb')
+                ->withErrors($validator)
+                ->withInput();
         }
 
-        // If the data with the provided school_id exists, update the record
-        if ($existingRecord) {
-            // Update the existing record with the current date
-            $existingRecord->update([
-                'date' => Carbon::now(),
-            ]);
+        $section = $request->input('section');
+        $schoolId = $request->input('school_id');
 
-            return redirect()->route('attendance.formWeb')->with('success', 'Attendance updated successfully');
-        } else {
-            // Data does not exist, return an error
-            return back()->withErrors(['school_id' => "Record doesn't exist."])->withInput();
+        try {
+            // Find the data with the provided school_id
+            $existingRecord = null;
+
+            switch ($section) {
+                case 'section-a':
+                    $existingRecord = SectionA::where('school_id', $schoolId)->first();
+                    break;
+                case 'section-b':
+                    $existingRecord = SectionB::where('school_id', $schoolId)->first();
+                    break;
+                case 'section-c':
+                    $existingRecord = SectionC::where('school_id', $schoolId)->first();
+                    break;
+            }
+
+            // If the data with the provided school_id exists, update the record
+            if ($existingRecord) {
+                // Check if a record already exists in the Attendance table for today's date
+                $attendanceRecord = Attendance::where('school_id', $schoolId)
+                    ->whereDate('date', now())
+                    ->first();
+
+                if ($attendanceRecord) {
+                    return redirect()->route('attendance.formWeb')
+                        ->withErrors(['school_id' => 'Student already recorded for today.'])
+                        ->withInput();
+                }
+
+                // Create a new record in the Attendance table with today's date
+                Attendance::create([
+                    'school_id' => $schoolId,
+                    'date' => now(),
+                ]);
+
+                return redirect()->route('attendance.formWeb')
+                    ->with('success', 'Attendance updated successfully');
+            } else {
+                // Data does not exist, return an error
+                return redirect()->route('attendance.formWeb')
+                    ->withErrors(['school_id' => "Record doesn't exist."])
+                    ->withInput();
+            }
+        } catch (\Exception $e) {
+            // Handle any exceptions here
+            return redirect()->route('attendance.formWeb')
+                ->withErrors(['database' => 'An error occurred while updating the attendance.'])
+                ->withInput();
         }
     }
+
+
+
 
     public function exportData()
     {

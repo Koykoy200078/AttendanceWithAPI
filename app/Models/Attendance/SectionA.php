@@ -9,5 +9,5 @@ class SectionA extends Model
 {
     use HasFactory;
     protected $table = 'section_a_s';
-    protected $fillable = ['school_id', 'name', 'date'];
+    protected $fillable = ['school_id', 'name'];
 }
