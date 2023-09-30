@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('school_id');
             $table->boolean('is_present')->default(false);
-            $table->date('date');
+            $table->date('date')->default(Carbon::now());
             $table->timestamps();
         });
     }
