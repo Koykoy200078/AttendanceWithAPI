@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Attendance\AllSections;
+use App\Http\Controllers\Attendance\AllSectionsAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/attendance/{section}', [AllSections::class, 'storeSection'])->name('attendance.storeSection');
+Route::get('/all', [AllSectionsAPI::class, 'all']);
+// Route::post('/attendance/{section}', [AllSectionsAPI::class, 'storeSection'])->name('attendance.storeSection');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

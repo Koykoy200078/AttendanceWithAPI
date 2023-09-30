@@ -11,6 +11,13 @@ class Attendance extends Model
     protected $table = 'attendances';
     protected $fillable = [
         'school_id',
+        'is_present',
         'date',
     ];
+    protected $hidden = ['id', 'school_id', 'created_at', 'updated_at'];
+
+    public function getIsPresentAttribute()
+    {
+        return $this->attributes['is_present'] == 1;
+    }
 }

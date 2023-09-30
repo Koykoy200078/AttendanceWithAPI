@@ -81,47 +81,6 @@ class AllSections extends Controller
         return redirect()->route('attendance.registerFormWeb')->with('success', 'Student successfully recorded');
     }
 
-
-    // public function storeSectionWeb(Request $request)
-    // {
-    //     $section = $request->input('section'); // Get the selected section from the form
-
-    //     // Validate the form data
-    //     $request->validate([
-    //         'school_id' => 'required|numeric|digits:9',
-    //     ]);
-
-    //     // Find the data with the provided school_id
-    //     $existingRecord = null;
-
-    //     switch ($section) {
-    //         case 'section-a':
-    //             $existingRecord = SectionA::where('school_id', $request->input('school_id'))->first();
-    //             break;
-    //         case 'section-b':
-    //             $existingRecord = SectionB::where('school_id', $request->input('school_id'))->first();
-    //             break;
-    //         case 'section-c':
-    //             $existingRecord = SectionC::where('school_id', $request->input('school_id'))->first();
-    //             break;
-    //         default:
-    //             return back()->withErrors(['section' => 'Invalid section'])->withInput();
-    //     }
-
-    //     // If the data with the provided school_id exists, update the record
-    //     if ($existingRecord) {
-    //         // Update the existing record with the current date
-    //         $existingRecord->update([
-    //             'date' => Carbon::now(),
-    //         ]);
-
-    //         return redirect()->route('attendance.formWeb')->with('success', 'Attendance updated successfully');
-    //     } else {
-    //         // Data does not exist, return an error
-    //         return back()->withErrors(['school_id' => "Record doesn't exist."])->withInput();
-    //     }
-    // }
-
     public function storeSectionWeb(Request $request)
     {
         // Validate the form data
@@ -158,7 +117,6 @@ class AllSections extends Controller
             if ($existingRecord) {
                 // Check if a record already exists in the Attendance table for today's date
                 $attendanceRecord = Attendance::where('school_id', $schoolId)
-                    ->whereDate('date', now())
                     ->first();
 
                 if ($attendanceRecord) {
@@ -170,7 +128,7 @@ class AllSections extends Controller
                 // Create a new record in the Attendance table with today's date
                 Attendance::create([
                     'school_id' => $schoolId,
-                    'date' => now(),
+                    'is_present' => true
                 ]);
 
                 return redirect()->route('attendance.formWeb')
@@ -234,51 +192,5 @@ class AllSections extends Controller
 
         // Return a response to download the file with the dynamic file name
         return response()->download($file, $filename)->deleteFileAfterSend(true);
-    }
-
-
-    public function storeSection(Request $request, $section)
-    {
-        // Validation rules for attendance
-        $validationRules = [
-            'school_id' => 'required|numeric|digits:9',
-            'name' => 'required',
-        ];
-
-        // Determine the appropriate model and table based on the section
-        $model = null;
-
-        switch ($section) {
-            case 'section-a':
-                $model = SectionA::class;
-                break;
-            case 'section-b':
-                $model = SectionB::class;
-                break;
-            case 'section-c':
-                $model = SectionC::class;
-                break;
-            default:
-                return response()->json(['error' => 'Invalid section'], 422);
-        }
-
-        // Validate the request data
-        $data = $request->validate($validationRules);
-
-        // Check if an attendance record for the same school_id exists
-        $existingRecord = $model::where('school_id', $data['school_id'])->first();
-
-        if ($existingRecord) {
-            throw ValidationException::withMessages(['school_id' => ['An attendance record already exists for this school ID.']]);
-        }
-
-        // Save the attendance record to the corresponding section table
-        $model::create([
-            'school_id' => $data['school_id'],
-            'name' => $data['name'],
-            'date' => Carbon::now(),
-        ]);
-
-        return response()->json(['message' => 'Attendance recorded successfully']);
     }
 }
