@@ -81,11 +81,78 @@ class AllSections extends Controller
         return redirect()->route('attendance.registerFormWeb')->with('success', 'Student successfully recorded');
     }
 
+    // public function storeSectionWeb(Request $request)
+    // {
+    //     // Validate the form data
+    //     $validator = Validator::make($request->all(), [
+    //         'school_id' => 'required|numeric|digits_between:9,10',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return redirect()->route('attendance.formWeb')
+    //             ->withErrors($validator)
+    //             ->withInput();
+    //     }
+
+    //     $section = $request->input('section');
+    //     $schoolId = $request->input('school_id');
+
+    //     try {
+    //         // Find the data with the provided school_id
+    //         $existingRecord = null;
+
+    //         switch ($section) {
+    //             case 'section-a':
+    //                 $existingRecord = SectionA::where('school_id', $schoolId)->first();
+    //                 break;
+    //             case 'section-b':
+    //                 $existingRecord = SectionB::where('school_id', $schoolId)->first();
+    //                 break;
+    //             case 'section-c':
+    //                 $existingRecord = SectionC::where('school_id', $schoolId)->first();
+    //                 break;
+    //         }
+
+    //         // If the data with the provided school_id exists, update the record
+    //         if ($existingRecord) {
+    //             // Check if a record already exists in the Attendance table for today's date
+    //             $attendanceRecord = Attendance::where('school_id', $schoolId)
+    //                 ->first();
+
+    //             if ($attendanceRecord) {
+    //                 return redirect()->route('attendance.formWeb')
+    //                     ->withErrors(['school_id' => 'Student already recorded for today.'])
+    //                     ->withInput();
+    //             }
+
+    //             // Create a new record in the Attendance table with today's date
+    //             Attendance::create([
+    //                 'school_id' => $schoolId,
+    //                 'is_present' => true
+    //             ]);
+
+    //             return redirect()->route('attendance.formWeb')
+    //                 ->with('success', 'Attendance updated successfully');
+    //         } else {
+    //             // Data does not exist, return an error
+    //             return redirect()->route('attendance.formWeb')
+    //                 ->withErrors(['school_id' => "Record doesn't exist."])
+    //                 ->withInput();
+    //         }
+    //     } catch (\Exception $e) {
+    //         // Handle any exceptions here
+    //         return redirect()->route('attendance.formWeb')
+    //             ->withErrors(['database' => 'An error occurred while updating the attendance.'])
+    //             ->withInput();
+    //     }
+    // }
+
     public function storeSectionWeb(Request $request)
     {
         // Validate the form data
         $validator = Validator::make($request->all(), [
             'school_id' => 'required|numeric|digits_between:9,10',
+            'section' => 'required|in:section-a,section-b,section-c',
         ]);
 
         if ($validator->fails()) {
@@ -113,10 +180,14 @@ class AllSections extends Controller
                     break;
             }
 
-            // If the data with the provided school_id exists, update the record
+            // If the data with the provided school_id exists, check for today's attendance
             if ($existingRecord) {
+                // Get today's date
+                $today = Carbon::today();
+
                 // Check if a record already exists in the Attendance table for today's date
                 $attendanceRecord = Attendance::where('school_id', $schoolId)
+                    ->whereDate('date', $today)
                     ->first();
 
                 if ($attendanceRecord) {
@@ -128,7 +199,8 @@ class AllSections extends Controller
                 // Create a new record in the Attendance table with today's date
                 Attendance::create([
                     'school_id' => $schoolId,
-                    'is_present' => true
+                    'is_present' => true,
+                    'date' => $today
                 ]);
 
                 return redirect()->route('attendance.formWeb')
@@ -146,6 +218,7 @@ class AllSections extends Controller
                 ->withInput();
         }
     }
+
 
 
 

@@ -188,8 +188,8 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202203013', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202102022', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202286', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202120854', 'is_present' => false, 'date' => '2023-09-27'], // absent
-            ['school_id' => '201905138', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120854', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '201905138', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202202291', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202102046', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202292', 'is_present' => true, 'date' => '2023-09-27'],
@@ -199,9 +199,9 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202300', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202301', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202000117', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202001497', 'is_present' => false, 'date' => '2023-09-27'], // absent
-            ['school_id' => '202120872', 'is_present' => false, 'date' => '2023-09-27'], // absent
-            ['school_id' => '202120874', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202001497', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120872', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120874', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '2021214678', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202120882', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202120887', 'is_present' => true, 'date' => '2023-09-27'],
@@ -213,7 +213,7 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202200385', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202332', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202334', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202120923', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120923', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202200357', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200360', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200365', 'is_present' => true, 'date' => '2023-09-27'],
@@ -235,13 +235,13 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202322', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200382', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202325', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202120901', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120901', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202202327', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200383', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202337', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202202338', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202202338', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202200388', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202120919', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120919', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202202341', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202343', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200389', 'is_present' => true, 'date' => '2023-09-27'],
@@ -251,7 +251,7 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202283', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202121427', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200364', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202303536', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202303536', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202200371', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202303545', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202202306', 'is_present' => true, 'date' => '2023-09-27'],
@@ -259,9 +259,9 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202307', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202120878', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200377', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '202120890', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '202120890', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202202320', 'is_present' => true, 'date' => '2023-09-27'],
-            ['school_id' => '201901647', 'is_present' => false, 'date' => '2023-09-27'], // absent
+            // ['school_id' => '201901647', 'is_present' => false, 'date' => '2023-09-27'], // absent
             ['school_id' => '202202339', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202002622', 'is_present' => true, 'date' => '2023-09-27'],
             ['school_id' => '202200390', 'is_present' => true, 'date' => '2023-09-27'],
@@ -272,7 +272,7 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202203013', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202102022', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202286', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '202120854', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202120854', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '201905138', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202291', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202102046', 'is_present' => true, 'date' => '2023-09-29'],
@@ -295,7 +295,7 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202101655', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202329', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200385', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '202202332', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202202332', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '202202334', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202120923', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200357', 'is_present' => true, 'date' => '2023-09-29'],
@@ -325,7 +325,7 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202337', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202338', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200388', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '202120919', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202120919', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '202202341', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202343', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200389', 'is_present' => true, 'date' => '2023-09-29'],
@@ -335,17 +335,17 @@ class AttendanceSeeder extends Seeder
             ['school_id' => '202202283', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202121427', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200364', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '202303536', 'is_present' => false, 'date' => '2023-09-29'],
-            ['school_id' => '202200371', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202303536', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202200371', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '202303545', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202306', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200376', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202202307', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202120878', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200377', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '202120890', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '202120890', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '202202320', 'is_present' => true, 'date' => '2023-09-29'],
-            ['school_id' => '201901647', 'is_present' => false, 'date' => '2023-09-29'],
+            // ['school_id' => '201901647', 'is_present' => false, 'date' => '2023-09-29'],
             ['school_id' => '202202339', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202002622', 'is_present' => true, 'date' => '2023-09-29'],
             ['school_id' => '202200390', 'is_present' => true, 'date' => '2023-09-29'],

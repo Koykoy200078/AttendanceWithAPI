@@ -19,14 +19,70 @@ class AllSectionsAPI extends Controller
         $sectionBData = SectionB::with('attendance')->get();
         $sectionCData = SectionC::with('attendance')->get();
 
-        $data = [
-            'section-a' => $sectionAData,
-            'section-b' => $sectionBData,
-            'section-c' => $sectionCData,
-        ];
+        // Count the number of attendees in each section
+        $sectionACount = SectionA::count();
+        $sectionBCount = SectionB::count();
+        $sectionCCount = SectionC::count();
 
-        return response()->json($data);
+
+        return response()->json([
+            'csc200' => [
+                'section-a' => [
+                    'total_students' => $sectionACount,
+                    'data' => $sectionAData,
+
+                ],
+                'section-b' => [
+                    'total_students' => $sectionBCount,
+                    'data' => $sectionBData,
+                ],
+                'section-c' => [
+                    'total_students' => $sectionCCount,
+                    'data' => $sectionCData,
+                ],
+            ]
+        ]);
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search'); // Get the search query from the request
+
+        // Initialize an empty array to store student data
+        $studentData = [];
+
+        // Fetch student data from SectionA if there are matching results
+        $sectionAData = SectionA::with('attendance')
+            ->where('name', 'like', "%$search%")
+            ->get();
+        if ($sectionAData->isNotEmpty()) {
+            $studentData['Section A'] = $sectionAData->toArray();
+        }
+
+        // Fetch student data from SectionB if there are matching results
+        $sectionBData = SectionB::with('attendance')
+            ->where('name', 'like', "%$search%")
+            ->get();
+        if ($sectionBData->isNotEmpty()) {
+            $studentData['Section B'] = $sectionBData->toArray();
+        }
+
+        // Fetch student data from SectionC if there are matching results
+        $sectionCData = SectionC::with('attendance')
+            ->where('name', 'like', "%$search%")
+            ->get();
+        if ($sectionCData->isNotEmpty()) {
+            $studentData['Section C'] = $sectionCData->toArray();
+        }
+
+        return response()->json([
+            'csc200' => [
+                'total_students' => count($studentData),
+                'data' => $studentData,
+            ]
+        ]);
+    }
+
 
 
     // public function storeSection(Request $request, $section)
