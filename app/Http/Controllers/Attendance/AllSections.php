@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Response;
 
+use App\Exports\ExportData;
+use Maatwebsite\Excel\Facades\Excel;
+
 class AllSections extends Controller
 {
     public function attendanceFormWeb()
@@ -156,68 +159,76 @@ class AllSections extends Controller
         }
     }
 
+    // public function exportData()
+    // {
+    //     // Create a dynamic file name
+    //     $currentDate = now()->format('Y-m-d');
+    //     $filename = "export_data_{$currentDate}.txt";
+
+    //     $fileContent = '';
+
+    //     // Section A
+    //     $dataA = DB::table('section_a_s')
+    //         ->select('section_a_s.school_id', 'section_a_s.name', 'attendances.date')
+    //         ->join('attendances', 'section_a_s.school_id', '=', 'attendances.school_id')
+    //         ->whereNotNull('attendances.date')
+    //         ->orderBy('section_a_s.name')
+    //         ->get();
+
+    //     if ($dataA->isNotEmpty()) {
+    //         $fileContent .= "Section A\n";
+    //         foreach ($dataA as $item) {
+    //             $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
+    //         }
+    //     }
+
+    //     // Section B
+    //     $dataB = DB::table('section_b_s')
+    //         ->select('section_b_s.school_id', 'section_b_s.name', 'attendances.date')
+    //         ->join('attendances', 'section_b_s.school_id', '=', 'attendances.school_id')
+    //         ->whereNotNull('attendances.date')
+    //         ->orderBy('section_b_s.name')
+    //         ->get();
+
+    //     if ($dataB->isNotEmpty()) {
+    //         $fileContent .= "\nSection B\n";
+    //         foreach ($dataB as $item) {
+    //             $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
+    //         }
+    //     }
+
+    //     // Section C
+    //     $dataC = DB::table('section_c_s')
+    //         ->select('section_c_s.school_id', 'section_c_s.name', 'attendances.date')
+    //         ->join(
+    //             'attendances',
+    //             'section_c_s.school_id',
+    //             '=',
+    //             'attendances.school_id'
+    //         )
+    //         ->whereNotNull('attendances.date')
+    //         ->orderBy('section_c_s.name')
+    //         ->get();
+
+    //     if ($dataC->isNotEmpty()) {
+    //         $fileContent .= "\nSection C\n";
+    //         foreach ($dataC as $item) {
+    //             $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
+    //         }
+    //     }
+
+    //     // Use Laravel's Storage to store the file
+    //     Storage::disk('public')->put($filename, $fileContent);
+
+    //     // Return a response to download the file with the dynamic file name
+    //     return response()->download(public_path("storage/{$filename}"), $filename)->deleteFileAfterSend(true);
+    // }
+
     public function exportData()
     {
-        // Create a dynamic file name
         $currentDate = now()->format('Y-m-d');
-        $filename = "export_data_{$currentDate}.txt";
+        $filename = "export_data_{$currentDate}.xlsx"; // Change the file extension to .xlsx for Excel files
 
-        $fileContent = '';
-
-        // Section A
-        $dataA = DB::table('section_a_s')
-            ->select('section_a_s.school_id', 'section_a_s.name', 'attendances.date')
-            ->join('attendances', 'section_a_s.school_id', '=', 'attendances.school_id')
-            ->whereNotNull('attendances.date')
-            ->orderBy('section_a_s.name')
-            ->get();
-
-        if ($dataA->isNotEmpty()) {
-            $fileContent .= "Section A\n";
-            foreach ($dataA as $item) {
-                $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
-            }
-        }
-
-        // Section B
-        $dataB = DB::table('section_b_s')
-            ->select('section_b_s.school_id', 'section_b_s.name', 'attendances.date')
-            ->join('attendances', 'section_b_s.school_id', '=', 'attendances.school_id')
-            ->whereNotNull('attendances.date')
-            ->orderBy('section_b_s.name')
-            ->get();
-
-        if ($dataB->isNotEmpty()) {
-            $fileContent .= "\nSection B\n";
-            foreach ($dataB as $item) {
-                $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
-            }
-        }
-
-        // Section C
-        $dataC = DB::table('section_c_s')
-            ->select('section_c_s.school_id', 'section_c_s.name', 'attendances.date')
-            ->join(
-                'attendances',
-                'section_c_s.school_id',
-                '=',
-                'attendances.school_id'
-            )
-            ->whereNotNull('attendances.date')
-            ->orderBy('section_c_s.name')
-            ->get();
-
-        if ($dataC->isNotEmpty()) {
-            $fileContent .= "\nSection C\n";
-            foreach ($dataC as $item) {
-                $fileContent .= "{$item->school_id}, {$item->name}, {$item->date}\n";
-            }
-        }
-
-        // Use Laravel's Storage to store the file
-        Storage::disk('public')->put($filename, $fileContent);
-
-        // Return a response to download the file with the dynamic file name
-        return response()->download(public_path("storage/{$filename}"), $filename)->deleteFileAfterSend(true);
+        return Excel::download(new ExportData, $filename);
     }
 }
