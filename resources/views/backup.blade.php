@@ -7,8 +7,8 @@
 
     <title>Student Attendance Entry</title>
 
-    <link rel="stylesheet" href="/build/assets/app-85755165.css">
-    <script type="module" src="/build/assets/main.js"></script>
+    <link rel="stylesheet" href="/build/assets/app-b831b032.css">
+    <script type="module" src="/build/assets/app-02317797.js"></script>
 
 
     @vite('resources/css/app.css')

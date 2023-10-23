@@ -18,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/all', [AllSectionsAPI::class, 'all']);
 Route::get('/student/{search}', [AllSectionsAPI::class, 'search']);
+Route::get('/students', [AllSectionsAPI::class, 'searchDate']);
+
+// Route::get('/getGroups', [AllSectionsAPI::class, 'getGroups']);
 
 // Route::post('/attendance/{section}', [AllSectionsAPI::class, 'storeSection'])->name('attendance.storeSection');
+// Route::post('/create', [AllSectionsAPI::class, 'create']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
